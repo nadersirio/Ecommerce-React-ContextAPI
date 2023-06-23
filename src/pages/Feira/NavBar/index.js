@@ -8,10 +8,8 @@ export const NavBar = () => {
   return (
     <Nav>
       <Logo />
-      <IconButton>
-        <Badge
-          color="primary"
-        >
+      <IconButton color="secondary" href='/carrinho'>
+        <Badge color="primary">
           <ShoppingCartIcon />
         </Badge>
       </IconButton>

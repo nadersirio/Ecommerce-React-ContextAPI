@@ -1,7 +1,7 @@
 import { Container, Header, Lista } from './styles';
 import feira from './feira.json';
 import Produto from 'components/Produto';
-import NavBar from './NavBar';
+import { NavBar } from './NavBar';
 
 export const Feira = () => {
   return (
