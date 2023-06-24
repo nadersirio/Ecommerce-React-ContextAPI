@@ -5,23 +5,25 @@ import AddIcon from '@material-ui/icons/Add';
 import RemoveIcon from '@material-ui/icons/Remove';
 
 
-const Produto = ({ nome, foto, id, valor, unidade }) => {
+const Produto = (props) => {
   return (
     <Container>
       <div>
         <img
-          src={`/assets/${foto}.png`}
-          alt={`foto de ${nome}`}
+          src={`/assets/${props.foto}.png`}
+          alt={`foto de ${props.nome}`}
         />
         <p>
-          {nome} - R$ {valor?.toFixed(2)} <span>Kg</span>
+          {props.nome} - R$ {props.valor?.toFixed(2)} <span>Kg</span>
         </p>
       </div>
       <div>
-        <IconButton color="secondary">
+        <IconButton
+          onClick={() => props.setCarrinho(props.carrinho - props.valor)}
+          color="secondary">
           <RemoveIcon />
         </IconButton>
-        <IconButton>
+        <IconButton onClick={() => props.setCarrinho(props.carrinho + props.valor)}>
           <AddIcon />
         </IconButton>
       </div>
