@@ -6,14 +6,14 @@ import { UsuarioContext } from 'common/context/Usuario';
 import { useContext } from 'react';
 
 export const Feira = () => {
-  const { nome, setNome, saldo, setSaldo } = useContext(UsuarioContext);
+  const { nome, saldo, carrinho, setCarrinho } = useContext(UsuarioContext);
   return (
     <Container>
       <NavBar />
       <Header>
         <div>
-          <h2> Olá! {nome}</h2>
-          <h3> Saldo: R${saldo}</h3>
+          <h2> Olá! {nome} </h2>
+          <h3> Saldo: R$ {saldo} </h3>
         </div>
         <p>Encontre os melhores produtos orgânicos!</p>
       </Header>
@@ -24,6 +24,8 @@ export const Feira = () => {
         {feira.map(produto => (
           <Produto
             {...produto}
+            carrinho={carrinho}
+            setCarrinho={setCarrinho}
             key={produto.id}
           />
         ))}
