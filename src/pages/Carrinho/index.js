@@ -5,12 +5,15 @@ import { Container, Voltar, TotalContainer, PagamentoContainer} from './styles';
 import { UsuarioContext } from 'common/context/Usuario';
 import { useContext } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { CalculaValorCarrinho } from '../../components/FuncoesSecundarias';
 
 export const Carrinho = () => {
-  const { saldo, setSaldo, carrinho, setCarrinho } = useContext(UsuarioContext);
   const [openSnackbar, setOpenSnackbar] = useState(false);
   const navigate = useNavigate();
-  const saldoTotal = saldo - carrinho;
+
+  const { saldo, setSaldo, carrinho, setCarrinho } = useContext(UsuarioContext);
+  const valorCarrinho = CalculaValorCarrinho(carrinho);
+  const saldoFinal = saldo - valorCarrinho;
   return (
     <Container>
       <Voltar onClick={() => navigate('/feira')}/>
@@ -23,22 +26,22 @@ export const Carrinho = () => {
       <TotalContainer>
           <div>
             <h2>Total no Carrinho: </h2>
-            <span>R$ {carrinho} </span>
+            <span>R$ {valorCarrinho.toFixed(2)} </span>
           </div>
           <div>
             <h2> Saldo: </h2>
-            <span> R$ {saldo} </span>
+            <span> R$ {saldo.toFixed(2)} </span>
           </div>
           <div>
-            <h2> Saldo Total: </h2>
-            <span> R$ {saldoTotal} </span>
+            <h2> Saldo Final: </h2>
+            <span> R$ {saldoFinal.toFixed(2)} </span>
           </div>
         </TotalContainer>
       <Button
         onClick={() => {
           setOpenSnackbar(true);
-          setSaldo(saldoTotal);
-          setCarrinho(0);
+          setSaldo(saldoFinal);
+          setCarrinho([]);
           navigate('/feira');
         }}
         color="primary"

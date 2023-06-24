@@ -30,7 +30,7 @@ export const Login = () => {
         <Input
           type="number"
           value={saldo}
-          onChange={(event) => setSaldo(event.target.value)}
+          onChange={(event) => setSaldo(parseFloat(event.target.value))}
           startAdornment={
             <InputAdornment position="start">
               R$

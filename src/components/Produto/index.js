@@ -1,11 +1,14 @@
 import { Container } from './styles';
-import { memo } from 'react';
-import { IconButton } from '@material-ui/core';
+import { memo, useState } from 'react';
+import { IconButton, Snackbar } from '@material-ui/core';
 import AddIcon from '@material-ui/icons/Add';
 import RemoveIcon from '@material-ui/icons/Remove';
+import MuiAlert from '@material-ui/lab/Alert';
+import { TiraDoCarrinho, AdicionaAoCarrinho } from '../FuncoesSecundarias';
 
 
 const Produto = (props) => {
+  const [openSnackbar, setOpenSnackbar] = useState(false);
   return (
     <Container>
       <div>
@@ -14,19 +17,36 @@ const Produto = (props) => {
           alt={`foto de ${props.nome}`}
         />
         <p>
-          {props.nome} - R$ {props.valor?.toFixed(2)} <span>Kg</span>
+          {props.nome} - R$ {props.valor.toFixed(2)} <span>Kg</span>
         </p>
       </div>
       <div>
         <IconButton
-          onClick={() => props.setCarrinho(props.carrinho - props.valor)}
+          onClick={() => TiraDoCarrinho(props, setOpenSnackbar)}
           color="secondary">
           <RemoveIcon />
         </IconButton>
-        <IconButton onClick={() => props.setCarrinho(props.carrinho + props.valor)}>
+        <IconButton onClick={() => AdicionaAoCarrinho(props)}>
           <AddIcon />
         </IconButton>
       </div>
+      <Snackbar
+        anchorOrigin={
+          {
+            vertical: 'top',
+            horizontal: 'right'
+          }
+        }
+        open={openSnackbar}
+        onClose={() => setOpenSnackbar(false)}
+      >
+      <MuiAlert
+        onClose={() => setOpenSnackbar(false)}
+        severity="error"
+      >
+        Carrinho ja está vazio!
+      </MuiAlert>
+      </Snackbar>
     </Container>
   )
 }
