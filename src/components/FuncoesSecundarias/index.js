@@ -9,20 +9,13 @@ export const CalculaValorCarrinho = (carrinho) => {
   return valorTotal;
 };
 
-export const TiraDoCarrinho = (props, setOpenSnackbar) => {
-  if (!props.carrinho.length) {
-    setOpenSnackbar(true);
-  }
+export const TiraDoCarrinho = (props) => {
   const indexParaRemover = props.carrinho.findIndex((item) => item.item === props.nome);
-  if (indexParaRemover !== -1) {
-    let novoCarrinho = [...props.carrinho];
-    novoCarrinho.splice(indexParaRemover, 1);
-    props.setCarrinho(novoCarrinho);
-  }
+  props.setCarrinho(props.carrinho.filter((_, index) => indexParaRemover !== index))
 }
 
 export const AdicionaAoCarrinho = (props) => {
-  let item = {
+  const item = {
     "item": props.nome,
     "valor": props.valor,
   };

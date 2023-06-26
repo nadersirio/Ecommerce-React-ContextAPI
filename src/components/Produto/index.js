@@ -9,6 +9,13 @@ import { TiraDoCarrinho, AdicionaAoCarrinho } from '../FuncoesSecundarias';
 
 const Produto = (props) => {
   const [openSnackbar, setOpenSnackbar] = useState(false);
+
+  const handleRemoveItemCart = () => {
+    if (!props.carrinho.length) {
+      return setOpenSnackbar(true);
+    }
+    TiraDoCarrinho(props)
+  }
   return (
     <Container>
       <div>
@@ -22,7 +29,7 @@ const Produto = (props) => {
       </div>
       <div>
         <IconButton
-          onClick={() => TiraDoCarrinho(props, setOpenSnackbar)}
+          onClick={handleRemoveItemCart}
           color="secondary">
           <RemoveIcon />
         </IconButton>
