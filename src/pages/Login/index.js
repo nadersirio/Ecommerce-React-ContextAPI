@@ -1,26 +1,26 @@
 import { Button } from '@material-ui/core';
-import { Container, Titulo, InputContainer } from './styles';
+import { Container, Title, InputContainer } from './styles';
 import { Input, InputLabel, InputAdornment } from '@material-ui/core';
 import { useNavigate } from 'react-router-dom';
-import { UsuarioContext } from 'common/context/Usuario';
+import { UserContext } from 'common/context/User';
 import { useContext } from 'react';
 
 export const Login = () => {
   const navigate = useNavigate();
-  const { nome, setNome, saldo, setSaldo } = useContext(UsuarioContext);
+  const { name, setName, balance, setBalance } = useContext(UserContext);
   return (
     <Container>
-      <Titulo>
+      <Title>
         Insira o seu nome
-      </Titulo>
+      </Title>
       <InputContainer>
         <InputLabel>
           Nome
         </InputLabel>
         <Input
           type="text"
-          value={nome}
-          onChange={(event) => setNome(event.target.value)}
+          value={name}
+          onChange={(event) => setName(event.target.value)}
         />
       </InputContainer>
       <InputContainer>
@@ -29,8 +29,8 @@ export const Login = () => {
         </InputLabel>
         <Input
           type="number"
-          value={saldo}
-          onChange={(event) => setSaldo(parseInt(event.target.value))}
+          value={balance}
+          onChange={(event) => setBalance(parseInt(event.target.value))}
           startAdornment={
             <InputAdornment position="start">
               R$
@@ -41,7 +41,7 @@ export const Login = () => {
       <Button
         variant="contained"
         color="primary"
-        onClick={() => navigate('/feira')}
+        onClick={() => navigate('/market')}
       >
         Avançar
       </Button>

@@ -11,7 +11,7 @@ export const Container = styled.div`
   }
 `;
 
-export const Titulo = styled.h2`
+export const Title = styled.h2`
   margin-bottom: 20px;
   margin-top: 50px;
 `;

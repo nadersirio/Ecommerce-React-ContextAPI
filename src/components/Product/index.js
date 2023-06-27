@@ -4,27 +4,27 @@ import { IconButton, Snackbar } from '@material-ui/core';
 import AddIcon from '@material-ui/icons/Add';
 import RemoveIcon from '@material-ui/icons/Remove';
 import MuiAlert from '@material-ui/lab/Alert';
-import { TiraDoCarrinho, AdicionaAoCarrinho } from '../FuncoesSecundarias';
+import { RemoveToCart, AddOnCart } from '../FuncoesSecundarias';
 
 
-const Produto = (props) => {
+const Product = (props) => {
   const [openSnackbar, setOpenSnackbar] = useState(false);
 
   const handleRemoveItemCart = () => {
-    if (!props.carrinho.length) {
+    if (!props.cart.length) {
       return setOpenSnackbar(true);
     }
-    TiraDoCarrinho(props)
+    RemoveToCart(props)
   }
   return (
     <Container>
       <div>
         <img
-          src={`/assets/${props.foto}.png`}
-          alt={`foto de ${props.nome}`}
+          src={`/assets/${props.photo}.png`}
+          alt={`foto de ${props.name}`}
         />
         <p>
-          {props.nome} - R$ {props.valor.toFixed(2)} <span>Kg</span>
+          {props.name} - R$ {props.value.toFixed(2)} <span>Kg</span>
         </p>
       </div>
       <div>
@@ -33,7 +33,7 @@ const Produto = (props) => {
           color="secondary">
           <RemoveIcon />
         </IconButton>
-        <IconButton onClick={() => AdicionaAoCarrinho(props)}>
+        <IconButton onClick={() => AddOnCart(props)}>
           <AddIcon />
         </IconButton>
       </div>
@@ -58,4 +58,4 @@ const Produto = (props) => {
   )
 }
 
-export default memo(Produto)
+export default memo(Product)
