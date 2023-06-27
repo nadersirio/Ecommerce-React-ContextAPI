@@ -1,23 +1,23 @@
-export const CalculaValorCarrinho = (carrinho) => {
-  if (!carrinho.length) {
+export const calcValueCart = (cart) => {
+  if (!cart.length) {
     return 0;
   }
-  let valorTotal = 0;
-  for (let i = 0; i < carrinho.length; i++) {
-    valorTotal += carrinho[i].valor;
+  let totalValue = 0;
+  for (let i = 0; i < cart.length; i++) {
+    totalValue += cart[i].value;
   }
-  return valorTotal;
+  return totalValue;
 };
 
-export const TiraDoCarrinho = (props) => {
-  const indexParaRemover = props.carrinho.findIndex((item) => item.item === props.nome);
-  props.setCarrinho(props.carrinho.filter((_, index) => indexParaRemover !== index))
+export const removeFromCart = (props) => {
+  const indexToRemove = props.cart.findIndex((item) => item.item === props.name);
+  props.setCart(props.cart.filter((_, index) => indexToRemove !== index))
 }
 
-export const AdicionaAoCarrinho = (props) => {
+export const addOnCart = (props) => {
   const item = {
-    "item": props.nome,
-    "valor": props.valor,
+    "item": props.name,
+    "valor": props.value,
   };
-  props.setCarrinho([...props.carrinho, item]);
+  props.setCart([...props.cart, item]);
 };

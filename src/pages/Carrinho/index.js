@@ -1,46 +1,46 @@
 import { Button, InputLabel } from '@material-ui/core';
-import { Container, Voltar, TotalContainer, PagamentoContainer} from './styles';
-import { UsuarioContext } from 'common/context/Usuario';
+import { Container, Return, TotalContainer, PaymentContainer} from './styles';
+import { UserContext } from 'common/context/Usuario';
 import { useContext, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { CalculaValorCarrinho } from 'components/FuncoesSecundarias';
+import { calcValueCart } from 'components/FuncoesSecundarias';
 import { Snackbar } from 'components/snackbar-render'
 
 export const Carrinho = () => {
   const [openSnackbar, setOpenSnackbar] = useState(false);
   const navigate = useNavigate();
 
-  const { saldo, setSaldo, carrinho, setCarrinho } = useContext(UsuarioContext);
-  const valorCarrinho = CalculaValorCarrinho(carrinho);
-  const saldoFinal = saldo - valorCarrinho;
+  const { balance, setBalance, cart, setCart } = useContext(UserContext);
+  const cartValue = calcValueCart(cart);
+  const finalBalance = balance - cartValue;
   return (
     <Container>
-      <Voltar onClick={() => navigate('/feira')}/>
+      <Return onClick={() => navigate('/market')}/>
       <h2>
         Carrinho
       </h2>
-      <PagamentoContainer>
+      <PaymentContainer>
         <InputLabel> Forma de Pagamento </InputLabel>
-      </PagamentoContainer>
+      </PaymentContainer>
       <TotalContainer>
           <div>
             <h2>Total no Carrinho: </h2>
-            <span>R$ {valorCarrinho.toFixed(2)} </span>
+            <span>R$ {cartValue.toFixed(2)} </span>
           </div>
           <div>
             <h2> Saldo: </h2>
-            <span> R$ {saldo.toFixed(2)} </span>
+            <span> R$ {balance.toFixed(2)} </span>
           </div>
           <div>
             <h2> Saldo Final: </h2>
-            <span> R$ {saldoFinal.toFixed(2)} </span>
+            <span> R$ {finalBalance.toFixed(2)} </span>
           </div>
         </TotalContainer>
       <Button
         onClick={() => {
           setOpenSnackbar(true)
-          setSaldo(saldoFinal);
-          setCarrinho([]);
+          setBalance(finalBalance);
+          setCart([]);
         }}
         color="primary"
         variant="contained"

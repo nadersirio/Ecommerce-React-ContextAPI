@@ -4,18 +4,18 @@ import { IconButton } from '@material-ui/core';
 import AddIcon from '@material-ui/icons/Add';
 import RemoveIcon from '@material-ui/icons/Remove';
 import { Snackbar } from 'components/snackbar-render';
-import { TiraDoCarrinho, AdicionaAoCarrinho } from '../FuncoesSecundarias';
+import { removeFromCart, addOnCart } from '../FuncoesSecundarias';
 
 
-const Produto = (props) => {
+const Product = (props) => {
   const [openSnackbar, setOpenSnackbar] = useState(false);
 
   const handleRemoveItemCart = () => {
-    const itemOnCart = props.carrinho.filter(item => item.nome === props.nome);
-    if (!props.carrinho.length || itemOnCart) {
+    const itemOnCart = props.cart.filter(item => item.name === props.name);
+    if (!props.cart.length || itemOnCart) {
       return setOpenSnackbar(true);
     }
-    TiraDoCarrinho(props)
+    removeFromCart(props)
   }
 
   return (
@@ -23,10 +23,10 @@ const Produto = (props) => {
       <div>
         <img
           src={`/assets/${props.foto}.png`}
-          alt={`foto de ${props.nome}`}
+          alt={`foto de ${props.name}`}
         />
         <p>
-          {props.nome} - R$ {props.valor.toFixed(2)} <span>Kg</span>
+          {props.name} - R$ {props.valor.toFixed(2)} <span>Kg</span>
         </p>
       </div>
       <div>
@@ -35,13 +35,13 @@ const Produto = (props) => {
           color="secondary">
           <RemoveIcon />
         </IconButton>
-        <IconButton onClick={() => AdicionaAoCarrinho(props)}>
+        <IconButton onClick={() => addOnCart(props)}>
           <AddIcon />
         </IconButton>
       </div>
-      <Snackbar severity="error" msg="Esse item não consta em seu carrinho!" openSnackbar={openSnackbar} setOpenSnackbar={setOpenSnackbar} />
+      <Snackbar severity="error" msg="Esse item não consta em seu cart!" openSnackbar={openSnackbar} setOpenSnackbar={setOpenSnackbar} />
     </Container>
   )
 }
 
-export default memo(Produto)
+export default memo(Product)
