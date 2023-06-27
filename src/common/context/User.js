@@ -20,3 +20,21 @@ export const UserProvider = ({ children }) => {
     </UserContext.Provider>
   )
 }
+
+export const calcCartValue = (cart) => {
+  return cart.reduce((totalValue, item) => totalValue + item.value, 0);
+};
+
+
+export const removeFromCart = (props) => {
+  const indexToRemove = props.cart.findIndex((item) => item.item === props.name);
+  props.setCart(props.cart.filter((_, index) => indexToRemove !== index))
+}
+
+export const addOnCart = (props) => {
+  const item = {
+    "item": props.name,
+    "value": props.value,
+  };
+  props.setCart([...props.cart, item]);
+};

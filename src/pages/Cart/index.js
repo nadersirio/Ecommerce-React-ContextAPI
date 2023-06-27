@@ -4,7 +4,7 @@ import { Container, Voltar, TotalContainer, PagamentoContainer} from './styles';
 import { UserContext } from 'common/context/User';
 import { useContext, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { calcCartValue } from 'components/FuncoesSecundarias';
+import { calcCartValue } from 'common/context/User';
 
 export const Cart = () => {
   const [openSnackbar, setOpenSnackbar] = useState(false);

@@ -4,7 +4,7 @@ import { IconButton, Snackbar } from '@material-ui/core';
 import AddIcon from '@material-ui/icons/Add';
 import RemoveIcon from '@material-ui/icons/Remove';
 import MuiAlert from '@material-ui/lab/Alert';
-import { removeFromCart, addOnCart } from '../FuncoesSecundarias';
+import { removeFromCart, addOnCart } from 'common/context/User';
 
 
 const Product = (props) => {
