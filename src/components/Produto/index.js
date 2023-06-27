@@ -1,9 +1,9 @@
 import { Container } from './styles';
 import { memo, useState } from 'react';
-import { IconButton, Snackbar } from '@material-ui/core';
+import { IconButton } from '@material-ui/core';
 import AddIcon from '@material-ui/icons/Add';
 import RemoveIcon from '@material-ui/icons/Remove';
-import MuiAlert from '@material-ui/lab/Alert';
+import { Snackbar } from 'components/snackbar-render';
 import { TiraDoCarrinho, AdicionaAoCarrinho } from '../FuncoesSecundarias';
 
 
@@ -11,11 +11,13 @@ const Produto = (props) => {
   const [openSnackbar, setOpenSnackbar] = useState(false);
 
   const handleRemoveItemCart = () => {
-    if (!props.carrinho.length) {
+    const itemOnCart = props.carrinho.filter(item => item.nome === props.nome);
+    if (!props.carrinho.length || itemOnCart) {
       return setOpenSnackbar(true);
     }
     TiraDoCarrinho(props)
   }
+
   return (
     <Container>
       <div>
@@ -37,23 +39,7 @@ const Produto = (props) => {
           <AddIcon />
         </IconButton>
       </div>
-      <Snackbar
-        anchorOrigin={
-          {
-            vertical: 'top',
-            horizontal: 'right'
-          }
-        }
-        open={openSnackbar}
-        onClose={() => setOpenSnackbar(false)}
-      >
-      <MuiAlert
-        onClose={() => setOpenSnackbar(false)}
-        severity="error"
-      >
-        Carrinho ja está vazio!
-      </MuiAlert>
-      </Snackbar>
+      <Snackbar severity="error" msg="Esse item não consta em seu carrinho!" openSnackbar={openSnackbar} setOpenSnackbar={setOpenSnackbar} />
     </Container>
   )
 }
