@@ -1,22 +1,21 @@
 import { Button, Snackbar, InputLabel } from '@material-ui/core';
 import MuiAlert from '@material-ui/lab/Alert';
-import { useState } from 'react';
 import { Container, Voltar, TotalContainer, PagamentoContainer} from './styles';
-import { UsuarioContext } from 'common/context/Usuario';
-import { useContext } from 'react';
+import { UserContext } from 'common/context/User';
+import { useContext, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { CalculaValorCarrinho } from '../../components/FuncoesSecundarias';
+import { CalcCartValue } from 'components/FuncoesSecundarias';
 
-export const Carrinho = () => {
+export const Cart = () => {
   const [openSnackbar, setOpenSnackbar] = useState(false);
   const navigate = useNavigate();
 
-  const { saldo, setSaldo, carrinho, setCarrinho } = useContext(UsuarioContext);
-  const valorCarrinho = CalculaValorCarrinho(carrinho);
-  const saldoFinal = saldo - valorCarrinho;
+  const { balance, setBalance, cart, setCart } = useContext(UserContext);
+  const valueCart = CalcCartValue(cart);
+  const finalBalance = balance - valueCart;
   return (
     <Container>
-      <Voltar onClick={() => navigate('/feira')}/>
+      <Voltar onClick={() => navigate('/market')}/>
       <h2>
         Carrinho
       </h2>
@@ -26,23 +25,23 @@ export const Carrinho = () => {
       <TotalContainer>
           <div>
             <h2>Total no Carrinho: </h2>
-            <span>R$ {valorCarrinho.toFixed(2)} </span>
+            <span>R$ {valueCart.toFixed(2)} </span>
           </div>
           <div>
             <h2> Saldo: </h2>
-            <span> R$ {saldo.toFixed(2)} </span>
+            <span> R$ {balance.toFixed(2)} </span>
           </div>
           <div>
             <h2> Saldo Final: </h2>
-            <span> R$ {saldoFinal.toFixed(2)} </span>
+            <span> R$ {finalBalance.toFixed(2)} </span>
           </div>
         </TotalContainer>
       <Button
         onClick={() => {
           setOpenSnackbar(true);
-          setSaldo(saldoFinal);
-          setCarrinho([]);
-          navigate('/feira');
+          setBalance(finalBalance);
+          setCart([]);
+          navigate('/market');
         }}
         color="primary"
         variant="contained"

@@ -11,7 +11,7 @@ export const NavBar = () => {
       <img src="/assets/logo.svg" alt="logo" />
       <IconButton
         color="secondary"
-        onClick={() => navigate('/carrinho')}
+        onClick={() => navigate('/cart')}
       >
         <Badge color="primary">
           <ShoppingCartIcon />
