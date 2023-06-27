@@ -4,14 +4,14 @@ import { Container, Voltar, TotalContainer, PagamentoContainer} from './styles';
 import { UserContext } from 'common/context/User';
 import { useContext, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { CalcCartValue } from 'components/FuncoesSecundarias';
+import { calcCartValue } from 'components/FuncoesSecundarias';
 
 export const Cart = () => {
   const [openSnackbar, setOpenSnackbar] = useState(false);
   const navigate = useNavigate();
 
   const { balance, setBalance, cart, setCart } = useContext(UserContext);
-  const valueCart = CalcCartValue(cart);
+  const valueCart = calcCartValue(cart);
   const finalBalance = balance - valueCart;
   return (
     <Container>
