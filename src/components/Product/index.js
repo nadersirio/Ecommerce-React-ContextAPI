@@ -4,7 +4,7 @@ import { IconButton, Snackbar } from '@material-ui/core';
 import AddIcon from '@material-ui/icons/Add';
 import RemoveIcon from '@material-ui/icons/Remove';
 import MuiAlert from '@material-ui/lab/Alert';
-import { RemoveToCart, AddOnCart } from '../FuncoesSecundarias';
+import { removeFromCart, addOnCart } from '../FuncoesSecundarias';
 
 
 const Product = (props) => {
@@ -14,7 +14,7 @@ const Product = (props) => {
     if (!props.cart.length) {
       return setOpenSnackbar(true);
     }
-    RemoveToCart(props)
+    removeFromCart(props)
   }
   return (
     <Container>
@@ -33,7 +33,7 @@ const Product = (props) => {
           color="secondary">
           <RemoveIcon />
         </IconButton>
-        <IconButton onClick={() => AddOnCart(props)}>
+        <IconButton onClick={() => addOnCart(props)}>
           <AddIcon />
         </IconButton>
       </div>

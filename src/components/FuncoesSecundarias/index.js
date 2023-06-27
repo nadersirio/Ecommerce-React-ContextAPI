@@ -1,4 +1,4 @@
-export const CalcCartValue = (cart) => {
+export const calcCartValue = (cart) => {
   if (!cart.length) {
     return 0;
   }
@@ -9,12 +9,12 @@ export const CalcCartValue = (cart) => {
   return totalValue;
 };
 
-export const RemoveToCart = (props) => {
+export const removeFromCart = (props) => {
   const indexToRemove = props.cart.findIndex((item) => item.item === props.name);
   props.setCart(props.cart.filter((_, index) => indexToRemove !== index))
 }
 
-export const AddOnCart = (props) => {
+export const addOnCart = (props) => {
   const item = {
     "item": props.name,
     "value": props.value,
