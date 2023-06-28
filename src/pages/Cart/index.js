@@ -2,7 +2,7 @@ import { Button, InputLabel } from '@material-ui/core';
 import { UserContext, calcCartValue } from 'common/context/User';
 import { useContext, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { Snackbar } from 'components/snackbar-render'
+import { Snackbar } from 'components/Snackbar'
 import { Container, TotalContainer, PaymentContainer, Voltar } from './styles';
 
 export const Cart = () => {

@@ -3,7 +3,7 @@ import { memo, useState } from 'react';
 import { IconButton } from '@material-ui/core';
 import AddIcon from '@material-ui/icons/Add';
 import RemoveIcon from '@material-ui/icons/Remove';
-import { Snackbar } from 'components/snackbar-render';
+import { Snackbar } from 'components/Snackbar';
 import { removeFromCart, addOnCart } from '../FuncoesSecundarias';
 
 const Product = (props) => {
