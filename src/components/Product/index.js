@@ -6,7 +6,6 @@ import RemoveIcon from '@material-ui/icons/Remove';
 import { Snackbar } from 'components/snackbar-render';
 import { removeFromCart, addOnCart } from '../FuncoesSecundarias';
 
-
 const Product = (props) => {
   const [openSnackbar, setOpenSnackbar] = useState(false);
 
@@ -22,11 +21,11 @@ const Product = (props) => {
     <Container>
       <div>
         <img
-          src={`/assets/${props.foto}.png`}
+          src={`/assets/${props.photo}.png`}
           alt={`foto de ${props.name}`}
         />
         <p>
-          {props.name} - R$ {props.valor.toFixed(2)} <span>Kg</span>
+          {props.name} - R$ {props.value.toFixed(2)} <span>Kg</span>
         </p>
       </div>
       <div>

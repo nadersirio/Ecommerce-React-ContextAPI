@@ -1,4 +1,4 @@
-export const calcValueCart = (cart) => {
+export const calcCartValue = (cart) => {
   if (!cart.length) {
     return 0;
   }
@@ -17,7 +17,7 @@ export const removeFromCart = (props) => {
 export const addOnCart = (props) => {
   const item = {
     "item": props.name,
-    "valor": props.value,
+    "value": props.value,
   };
   props.setCart([...props.cart, item]);
 };

@@ -1,21 +1,20 @@
 import { Button, InputLabel } from '@material-ui/core';
-import { Container, Return, TotalContainer, PaymentContainer} from './styles';
-import { UserContext } from 'common/context/Usuario';
+import { UserContext, calcCartValue } from 'common/context/User';
 import { useContext, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { calcValueCart } from 'components/FuncoesSecundarias';
 import { Snackbar } from 'components/snackbar-render'
+import { Container, TotalContainer, PaymentContainer, Voltar } from './styles';
 
-export const Carrinho = () => {
+export const Cart = () => {
   const [openSnackbar, setOpenSnackbar] = useState(false);
   const navigate = useNavigate();
 
   const { balance, setBalance, cart, setCart } = useContext(UserContext);
-  const cartValue = calcValueCart(cart);
-  const finalBalance = balance - cartValue;
+  const valueCart = calcCartValue(cart);
+  const finalBalance = balance - valueCart;
   return (
     <Container>
-      <Return onClick={() => navigate('/market')}/>
+      <Voltar onClick={() => navigate('/market')}/>
       <h2>
         Carrinho
       </h2>
@@ -25,7 +24,7 @@ export const Carrinho = () => {
       <TotalContainer>
           <div>
             <h2>Total no Carrinho: </h2>
-            <span>R$ {cartValue.toFixed(2)} </span>
+            <span>R$ {valueCart.toFixed(2)} </span>
           </div>
           <div>
             <h2> Saldo: </h2>
@@ -38,9 +37,10 @@ export const Carrinho = () => {
         </TotalContainer>
       <Button
         onClick={() => {
-          setOpenSnackbar(true)
+          setOpenSnackbar(true);
           setBalance(finalBalance);
           setCart([]);
+          navigate('/market');
         }}
         color="primary"
         variant="contained"
