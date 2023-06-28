@@ -1,10 +1,9 @@
-import { Button, Snackbar, InputLabel } from '@material-ui/core';
-import MuiAlert from '@material-ui/lab/Alert';
-import { Container, Voltar, TotalContainer, PagamentoContainer} from './styles';
-import { UserContext } from 'common/context/User';
+import { Button, InputLabel } from '@material-ui/core';
+import { UserContext, calcCartValue } from 'common/context/User';
 import { useContext, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { calcCartValue } from 'common/context/User';
+import { Snackbar } from 'components/Snackbar'
+import { Container, TotalContainer, PaymentContainer, Voltar } from './styles';
 
 export const Cart = () => {
   const [openSnackbar, setOpenSnackbar] = useState(false);
@@ -19,9 +18,9 @@ export const Cart = () => {
       <h2>
         Carrinho
       </h2>
-      <PagamentoContainer>
+      <PaymentContainer>
         <InputLabel> Forma de Pagamento </InputLabel>
-      </PagamentoContainer>
+      </PaymentContainer>
       <TotalContainer>
           <div>
             <h2>Total no Carrinho: </h2>
@@ -48,23 +47,7 @@ export const Cart = () => {
       >
         Comprar
       </Button>
-        <Snackbar
-          anchorOrigin={
-            {
-              vertical: 'top',
-              horizontal: 'right'
-            }
-          }
-          open={openSnackbar}
-          onClose={() => setOpenSnackbar(false)}
-        >
-          <MuiAlert
-            onClose={() => setOpenSnackbar(false)}
-            severity="success"
-          >
-            Compra feita com sucesso!
-          </MuiAlert>
-        </Snackbar>
+      <Snackbar severity="success" msg="Compra feita com sucesso!" openSnackbar={openSnackbar} setOpenSnackbar={setOpenSnackbar} />
     </Container>
   )
 }
