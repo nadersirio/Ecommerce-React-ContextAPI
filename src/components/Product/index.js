@@ -8,7 +8,7 @@ import { Snackbar } from 'components/Snackbar';
 
 
 const Product = (props) => {
-  const { cart, initialState } = useContext(CartContext);
+  const { initialState } = useContext(CartContext);
   const [ {open, severity, msg}, setSnackbarConfig ] = useState(initialState);
 
   const handleRemoveItemCart = () => {
