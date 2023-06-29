@@ -4,10 +4,11 @@ import Product from 'components/Product';
 import { NavBar } from './NavBar';
 import { UserContext} from 'common/context/User';
 import { useContext } from 'react';
-import { calcCartValue } from 'common/context/User'
+import { CartContext, calcCartValue } from 'common/context/Cart'
 
 export const Market = () => {
-  const { name, balance, cart, setCart } = useContext(UserContext);
+  const { name, balance } = useContext(UserContext);
+  const { cart, setCart } = useContext(CartContext);
   return (
     <Container>
       <NavBar />

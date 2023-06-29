@@ -1,18 +1,24 @@
 import { Container } from './styles';
-import { memo, useState } from 'react';
+import { memo, useState, useContext } from 'react';
 import { IconButton } from '@material-ui/core';
 import AddIcon from '@material-ui/icons/Add';
 import RemoveIcon from '@material-ui/icons/Remove';
+import { removeFromCart, addOnCart, CartContext } from 'common/context/Cart';
 import { Snackbar } from 'components/Snackbar';
-import { removeFromCart, addOnCart } from '../FuncoesSecundarias';
+
 
 const Product = (props) => {
-  const [openSnackbar, setOpenSnackbar] = useState(false);
+  const { cart, initialState } = useContext(CartContext);
+  const [ {open, severity, msg}, setSnackbarConfig ] = useState(initialState);
 
   const handleRemoveItemCart = () => {
     const itemOnCart = props.cart.filter(item => item.name === props.name);
-    if (!props.cart.length || itemOnCart) {
-      return setOpenSnackbar(true);
+    if (!props.cart.length || !itemOnCart.length) {
+      return setSnackbarConfig({
+        open: true,
+        severity: "error",
+        msg: "Este item não consta em seu carrinho!",
+      });
     }
     removeFromCart(props)
   }
@@ -38,7 +44,7 @@ const Product = (props) => {
           <AddIcon />
         </IconButton>
       </div>
-      <Snackbar severity="error" msg="Esse item não consta em seu cart!" openSnackbar={openSnackbar} setOpenSnackbar={setOpenSnackbar} />
+      <Snackbar severity={severity} msg={msg} openSnackbar={open} setSnackbarConfig={setSnackbarConfig} initialState={initialState} />
     </Container>
   )
 }

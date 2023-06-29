@@ -1,7 +1,7 @@
 import MuiAlert from '@material-ui/lab/Alert';
 import { Snackbar as Snack } from '@material-ui/core';
 
-export const Snackbar = ({ severity, msg, openSnackbar, setOpenSnackbar }) => {
+export const Snackbar = ({ severity, msg, openSnackbar, setSnackbarConfig, initialState }) => {
   return (
     <Snack
       anchorOrigin={
@@ -11,10 +11,10 @@ export const Snackbar = ({ severity, msg, openSnackbar, setOpenSnackbar }) => {
         }
       }
       open={openSnackbar}
-      onClose={() => setOpenSnackbar(false)}
+      onClose={() => setSnackbarConfig(initialState)}
     >
       <MuiAlert
-        onClose={() => setOpenSnackbar(false)}
+        onClose={() => setSnackbarConfig(initialState)}
         severity={severity}
       >
         {msg}

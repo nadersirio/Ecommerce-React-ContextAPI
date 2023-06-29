@@ -1,20 +1,39 @@
 import { Button, InputLabel } from '@material-ui/core';
-import { UserContext, calcCartValue } from 'common/context/User';
+import { Container, Return, TotalContainer, PaymentContainer} from './styles';
 import { useContext, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { Snackbar } from 'components/Snackbar'
-import { Container, TotalContainer, PaymentContainer, Voltar } from './styles';
+import { UserContext } from 'common/context/User';
+import { CartContext, calcCartValue } from 'common/context/Cart';
+import { Snackbar } from 'components/Snackbar';
 
 export const Cart = () => {
-  const [openSnackbar, setOpenSnackbar] = useState(false);
   const navigate = useNavigate();
-
-  const { balance, setBalance, cart, setCart } = useContext(UserContext);
+  const { balance, setBalance } = useContext(UserContext);
+  const { cart, setCart, initialState } = useContext(CartContext);
+  const [{open, severity, msg}, setSnackbarConfig] = useState(initialState);
   const valueCart = calcCartValue(cart);
   const finalBalance = balance - valueCart;
+
+  const checkPayment = () => {
+    if(valueCart > balance || !valueCart) {
+      return setSnackbarConfig({
+        open: true,
+        severity: "error",
+        msg: "Compra Recusada."
+      })
+    }
+    setSnackbarConfig({
+      open: true,
+      severity: "success",
+      msg: "Compra feita com sucesso!",
+    });
+    setBalance(finalBalance);
+    setCart([]);
+  }
+
   return (
     <Container>
-      <Voltar onClick={() => navigate('/market')}/>
+      <Return onClick={() => navigate('/market')}/>
       <h2>
         Carrinho
       </h2>
@@ -37,17 +56,20 @@ export const Cart = () => {
         </TotalContainer>
       <Button
         onClick={() => {
-          setOpenSnackbar(true);
-          setBalance(finalBalance);
-          setCart([]);
-          navigate('/market');
+          checkPayment();
         }}
         color="primary"
         variant="contained"
       >
         Comprar
       </Button>
-      <Snackbar severity="success" msg="Compra feita com sucesso!" openSnackbar={openSnackbar} setOpenSnackbar={setOpenSnackbar} />
+      <Snackbar
+        severity={severity}
+        msg={msg}
+        openSnackbar={open}
+        setSnackbarConfig={setSnackbarConfig}
+        initialState={initialState}
+      />
     </Container>
   )
 }
