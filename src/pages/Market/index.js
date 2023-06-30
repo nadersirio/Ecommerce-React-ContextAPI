@@ -3,11 +3,11 @@ import market from './market.json';
 import Product from 'components/Product';
 import { NavBar } from './NavBar';
 import { useUserContext} from 'common/context/User';
-import { useCartContext } from 'common/context/Cart'
+import { useCartContext } from 'common/context/Cart';
 
 export const Market = () => {
   const { name, balance } = useUserContext();
-  const { cart, setCart } = useCartContext();
+  const { calcCartValue } = useCartContext();
   return (
     <Container>
       <NavBar />
@@ -16,6 +16,7 @@ export const Market = () => {
           <h2> Olá! {name} </h2>
           <h3> Saldo: R$ {balance.toFixed(2)} </h3>
         </div>
+        <h4> Carrinho: R$ {calcCartValue().toFixed(2)}</h4>
         <p>Encontre os melhores produtos orgânicos!</p>
       </Header>
       <List>
@@ -25,8 +26,6 @@ export const Market = () => {
         {market.map(product => (
           <Product
             {...product}
-            cart={cart}
-            setCart={setCart}
             key={product.id}
           />
         ))}

@@ -9,9 +9,9 @@ import { Snackbar } from 'components/Snackbar';
 export const Cart = () => {
   const navigate = useNavigate();
   const { balance, setBalance } = useUserContext();
-  const { cart, setCart, initialState, calcCartValue, checkPayment } = useCartContext();
+  const { initialState, calcCartValue, checkPayment } = useCartContext();
   const [{open, severity, msg}, setSnackbarConfig] = useState(initialState);
-  const valueCart = calcCartValue(cart);
+  const valueCart = calcCartValue();
   const finalBalance = balance - valueCart;
 
 
@@ -42,7 +42,6 @@ export const Cart = () => {
           onClick={() =>
             checkPayment({
               valueCart,
-              setCart,
               balance,
               finalBalance,
               setBalance,
