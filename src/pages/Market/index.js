@@ -2,13 +2,12 @@ import { Container, Header, List } from './styles';
 import market from './market.json';
 import Product from 'components/Product';
 import { NavBar } from './NavBar';
-import { UserContext} from 'common/context/User';
-import { useContext } from 'react';
-import { CartContext, calcCartValue } from 'common/context/Cart'
+import { useUserContext} from 'common/context/User';
+import { useCartContext } from 'common/context/Cart'
 
 export const Market = () => {
-  const { name, balance } = useContext(UserContext);
-  const { cart, setCart } = useContext(CartContext);
+  const { name, balance } = useUserContext();
+  const { cart, setCart } = useCartContext();
   return (
     <Container>
       <NavBar />
@@ -17,7 +16,6 @@ export const Market = () => {
           <h2> Olá! {name} </h2>
           <h3> Saldo: R$ {balance.toFixed(2)} </h3>
         </div>
-        <h4> Carrinho: R$ {calcCartValue(cart).toFixed(2)}</h4>
         <p>Encontre os melhores produtos orgânicos!</p>
       </Header>
       <List>

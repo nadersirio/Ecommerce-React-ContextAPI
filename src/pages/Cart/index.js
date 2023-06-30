@@ -1,35 +1,19 @@
 import { Button, InputLabel } from '@material-ui/core';
 import { Container, Return, TotalContainer, PaymentContainer} from './styles';
-import { useContext, useState } from 'react';
+import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { UserContext } from 'common/context/User';
-import { CartContext, calcCartValue } from 'common/context/Cart';
+import { useUserContext } from 'common/context/User';
+import { useCartContext } from 'common/context/Cart';
 import { Snackbar } from 'components/Snackbar';
 
 export const Cart = () => {
   const navigate = useNavigate();
-  const { balance, setBalance } = useContext(UserContext);
-  const { cart, setCart, initialState } = useContext(CartContext);
+  const { balance, setBalance } = useUserContext();
+  const { cart, setCart, initialState, calcCartValue, checkPayment } = useCartContext();
   const [{open, severity, msg}, setSnackbarConfig] = useState(initialState);
   const valueCart = calcCartValue(cart);
   const finalBalance = balance - valueCart;
 
-  const checkPayment = () => {
-    if(valueCart > balance || !valueCart) {
-      return setSnackbarConfig({
-        open: true,
-        severity: "error",
-        msg: "Compra Recusada."
-      })
-    }
-    setSnackbarConfig({
-      open: true,
-      severity: "success",
-      msg: "Compra feita com sucesso!",
-    });
-    setBalance(finalBalance);
-    setCart([]);
-  }
 
   return (
     <Container>
@@ -54,15 +38,22 @@ export const Cart = () => {
             <span> R$ {finalBalance.toFixed(2)} </span>
           </div>
         </TotalContainer>
-      <Button
-        onClick={() => {
-          checkPayment();
-        }}
-        color="primary"
-        variant="contained"
-      >
+        <Button
+          onClick={() =>
+            checkPayment({
+              valueCart,
+              setCart,
+              balance,
+              finalBalance,
+              setBalance,
+              setSnackbarConfig,
+            })
+          }
+          color="primary"
+          variant="contained"
+        >
         Comprar
-      </Button>
+        </Button>
       <Snackbar
         severity={severity}
         msg={msg}
