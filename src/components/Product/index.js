@@ -31,6 +31,7 @@ const Product = (props) => {
       </div>
       <div>
         <IconButton
+          disabled={!ProductOnCart}
           onClick={() =>
             handleRemoveItemCart({
               name,
