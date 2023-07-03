@@ -5,11 +5,12 @@ import { useNavigate } from 'react-router-dom';
 import { useUserContext } from 'common/context/User';
 import { useCartContext } from 'common/context/Cart';
 import { Snackbar } from 'components/Snackbar';
+import Product from 'components/Product';
 
 export const Cart = () => {
   const navigate = useNavigate();
   const { balance, setBalance } = useUserContext();
-  const { initialState, calcCartValue, checkPayment } = useCartContext();
+  const { cart, initialState, calcCartValue, checkPayment } = useCartContext();
   const [{open, severity, msg}, setSnackbarConfig] = useState(initialState);
   const valueCart = calcCartValue();
   const finalBalance = balance - valueCart;
@@ -21,6 +22,12 @@ export const Cart = () => {
       <h2>
         Carrinho
       </h2>
+      {cart.map(product => (
+        <Product
+          {...product}
+          key={product.id}
+        />
+      ))}
       <PaymentContainer>
         <InputLabel> Forma de Pagamento </InputLabel>
       </PaymentContainer>
