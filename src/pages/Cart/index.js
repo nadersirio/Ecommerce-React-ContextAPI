@@ -18,7 +18,7 @@ export const Cart = () => {
 
   return (
     <Container>
-      <Return onClick={() => navigate('/market')}/>
+      <Return onClick={() => navigate(-1)}/>
       <h2>
         Carrinho
       </h2>
