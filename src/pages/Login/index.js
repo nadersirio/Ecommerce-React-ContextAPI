@@ -40,6 +40,7 @@ export const Login = () => {
       <Button
         variant="contained"
         color="primary"
+        disabled={name.length < 3}
         onClick={() => navigate('/market')}
       >
         Avançar
