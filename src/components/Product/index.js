@@ -8,9 +8,15 @@ import { Snackbar } from 'components/Snackbar';
 
 
 const Product = (props) => {
-  const { initialState, addOnCart, removeFromCart, handleRemoveItemCart } = useCartContext();
+  const {
+    cart,
+    initialState,
+    addOnCart,
+    removeFromCart,
+    handleRemoveItemCart,
+  } = useCartContext();
   const [ {open, severity, msg}, setSnackbarConfig ] = useState(initialState);
-  const { cart, name, id, photo, value } = props;
+  const { name, id, photo, value } = props;
   const ProductOnCart = cart.find(itemOnCart => itemOnCart.id === id);
   const handleRemoveItemCartParamns = {
     cart,
@@ -36,7 +42,9 @@ const Product = (props) => {
           <RemoveIcon />
         </IconButton>
         {ProductOnCart?.quantity || 0}
-        <IconButton onClick={() => addOnCart(props)}>
+        <IconButton
+          color="primary"
+          onClick={() => addOnCart(props)}>
           <AddIcon />
         </IconButton>
       </div>

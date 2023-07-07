@@ -21,19 +21,28 @@ export const CartProvider = ({ children }) => {
 export const useCartContext = () => {
   const { cart, setCart, initialState } = useContext(CartContext);
 
-  const calcCartValue = (cart) => {
+  const changeQuantity = (id, quantity) => {
+    return cart.map(itemOnCart => {
+      if(itemOnCart.id === id) itemOnCart.quantity += quantity;
+      return itemOnCart;
+    })
+  }
+
+  const calcCartValue = () => {
     const itemValues = cart.map(item => item.quantity * item.value);
     return itemValues.reduce((accumulator, value) => accumulator + value, 0);
   };
 
-  const removeFromCart = (props) => {
-    const { name, cart, setCart } = props;
-    const indexToRemove = cart.findIndex((item) => item.name === name);
-    setCart(cart.filter((_, index) => indexToRemove !== index))
+  const removeFromCart = (id, cart) => {
+    const itemQuantitySubtraction = cart.find(item => item.id === id).quantity - 1;
+    if(itemQuantitySubtraction <= 0) {
+      return setCart(lastCart => lastCart.filter(itemOnCart => itemOnCart.id !== id));
+    }
+    setCart(changeQuantity(id, -1))
   }
 
   const addOnCart = (props) => {
-    const { name, photo, id, value, cart, setCart } = props;
+    const { name, photo, id, value } = props;
     const newProduct = { name, photo, id, value };
     const hasTheProduct = cart.some(itemOnCart => itemOnCart.id === newProduct.id);
     if(!hasTheProduct) {
@@ -41,16 +50,12 @@ export const useCartContext = () => {
       return setCart(lastCart => [...lastCart, newProduct]
       );
     }
-    setCart(lastCart => lastCart.map(itemOnCart => {
-      if(itemOnCart.id === newProduct.id) itemOnCart.quantity += 1;
-      return itemOnCart;
-    }))
+    setCart(changeQuantity(newProduct.id, +1))
   }
 
   const checkPayment = (props) => {
     const {
       valueCart,
-      setCart,
       balance,
       finalBalance,
       setBalance,
@@ -74,7 +79,7 @@ export const useCartContext = () => {
   }
 
   const handleRemoveItemCart = (props) => {
-    const { cart, name, setSnackbarConfig, removeFromCart } = props;
+    const { name, id, setSnackbarConfig } = props;
     const itemOnCart = cart.filter(item => item.name === name);
     if (!cart.length || !itemOnCart.length) {
       return setSnackbarConfig({
@@ -83,7 +88,7 @@ export const useCartContext = () => {
         msg: "Este item não consta em seu carrinho!",
       });
     }
-    removeFromCart(props)
+    removeFromCart(id, cart)
   }
 
   return {
