@@ -14,6 +14,13 @@ export const Cart = () => {
   const valueCart = calcCartValue();
   const finalBalance = balance - valueCart;
 
+  const checkPaymentParamns = {
+    valueCart,
+    balance,
+    finalBalance,
+    setBalance,
+    setSnackbarConfig,
+  }
 
   return (
     <Container>
@@ -39,15 +46,7 @@ export const Cart = () => {
           </div>
         </TotalContainer>
         <Button
-          onClick={() =>
-            checkPayment({
-              valueCart,
-              balance,
-              finalBalance,
-              setBalance,
-              setSnackbarConfig,
-            })
-          }
+          onClick={() => checkPayment(checkPaymentParamns)}
           color="primary"
           variant="contained"
         >

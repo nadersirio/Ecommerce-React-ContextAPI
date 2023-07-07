@@ -12,12 +12,18 @@ const Product = (props) => {
     cart,
     initialState,
     addOnCart,
+    removeFromCart,
     handleRemoveItemCart,
   } = useCartContext();
   const [ {open, severity, msg}, setSnackbarConfig ] = useState(initialState);
   const { name, id, photo, value } = props;
   const ProductOnCart = cart.find(itemOnCart => itemOnCart.id === id);
-
+  const handleRemoveItemCartParamns = {
+    cart,
+    name,
+    setSnackbarConfig,
+    removeFromCart
+  }
   return (
     <Container>
       <div>
@@ -31,12 +37,7 @@ const Product = (props) => {
       </div>
       <div>
         <IconButton
-          onClick={() =>
-            handleRemoveItemCart({
-              name,
-              id,
-              setSnackbarConfig,
-            })}
+          onClick={() => handleRemoveItemCart(handleRemoveItemCartParamns)}
           color="secondary">
           <RemoveIcon />
         </IconButton>
