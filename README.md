@@ -1,3 +1,8 @@
+# About The Project
+Project focused on the use and learning of the ContextAPI, where we have the management and storage of data by states and hooks. The E-Commerce theme was used, based on Alura classes.
+
+
+
 # Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
