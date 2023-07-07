@@ -19,10 +19,9 @@ const Product = (props) => {
   const { name, id, photo, value } = props;
   const ProductOnCart = cart.find(itemOnCart => itemOnCart.id === id);
   const handleRemoveItemCartParamns = {
-    cart,
+    id,
     name,
     setSnackbarConfig,
-    removeFromCart
   }
   return (
     <Container>
