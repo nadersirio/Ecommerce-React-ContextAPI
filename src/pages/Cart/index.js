@@ -1,19 +1,21 @@
-import { Button, InputLabel } from '@material-ui/core';
+import { Button, InputLabel, Select, MenuItem } from '@material-ui/core';
 import { Container, Return, TotalContainer, PaymentContainer} from './styles';
-import { useState } from 'react';
+import { useState, useMemo } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useUserContext } from 'common/context/User';
 import { useCartContext } from 'common/context/Cart';
+import { usePaymentContext } from 'common/context/Payment';
 import { Snackbar } from 'components/Snackbar';
 import Product from 'components/Product';
 
 export const Cart = () => {
   const navigate = useNavigate();
   const { balance, setBalance } = useUserContext();
+  const { paymentTypes, formPayment, changePaymentMethod } = usePaymentContext();
   const { cart, initialState, calcCartValue, checkPayment } = useCartContext();
   const [{open, severity, msg}, setSnackbarConfig] = useState(initialState);
-  const valueCart = calcCartValue();
-  const finalBalance = balance - valueCart;
+  const valueCart = calcCartValue() * formPayment.interest;
+  const finalBalance = useMemo(() => balance - valueCart, [balance, valueCart]);
 
 
   return (
@@ -30,6 +32,16 @@ export const Cart = () => {
       ))}
       <PaymentContainer>
         <InputLabel> Forma de Pagamento </InputLabel>
+        <Select
+          value={formPayment.id}
+          onChange={(event) => changePaymentMethod(event.target.value)}
+        >
+          {paymentTypes.map(payment => (
+            <MenuItem value={payment.id} key={payment.id}>
+              {payment.name}
+            </MenuItem>
+          ))}
+        </Select>
       </PaymentContainer>
       <TotalContainer>
           <div>
