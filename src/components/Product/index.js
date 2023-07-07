@@ -3,42 +3,44 @@ import { memo, useState } from 'react';
 import { IconButton } from '@material-ui/core';
 import AddIcon from '@material-ui/icons/Add';
 import RemoveIcon from '@material-ui/icons/Remove';
+import { useCartContext } from 'common/context/Cart';
 import { Snackbar } from 'components/Snackbar';
-import { removeFromCart, addOnCart } from '../FuncoesSecundarias';
+
 
 const Product = (props) => {
-  const [openSnackbar, setOpenSnackbar] = useState(false);
-
-  const handleRemoveItemCart = () => {
-    const itemOnCart = props.cart.filter(item => item.name === props.name);
-    if (!props.cart.length || itemOnCart) {
-      return setOpenSnackbar(true);
-    }
-    removeFromCart(props)
+  const { initialState, addOnCart, removeFromCart, handleRemoveItemCart } = useCartContext();
+  const [ {open, severity, msg}, setSnackbarConfig ] = useState(initialState);
+  const { cart, name, id, photo, value } = props;
+  const ProductOnCart = cart.find(itemOnCart => itemOnCart.id === id);
+  const handleRemoveItemCartParamns = {
+    cart,
+    name,
+    setSnackbarConfig,
+    removeFromCart
   }
-
   return (
     <Container>
       <div>
         <img
-          src={`/assets/${props.photo}.png`}
-          alt={`foto de ${props.name}`}
+          src={`/assets/${photo}.png`}
+          alt={`foto de ${name}`}
         />
         <p>
-          {props.name} - R$ {props.value.toFixed(2)} <span>Kg</span>
+          {name} - R$ {value.toFixed(2)} <span>Kg</span>
         </p>
       </div>
       <div>
         <IconButton
-          onClick={handleRemoveItemCart}
+          onClick={() => handleRemoveItemCart(handleRemoveItemCartParamns)}
           color="secondary">
           <RemoveIcon />
         </IconButton>
+        {ProductOnCart?.quantity || 0}
         <IconButton onClick={() => addOnCart(props)}>
           <AddIcon />
         </IconButton>
       </div>
-      <Snackbar severity="error" msg="Esse item não consta em seu cart!" openSnackbar={openSnackbar} setOpenSnackbar={setOpenSnackbar} />
+      <Snackbar severity={severity} msg={msg} openSnackbar={open} setSnackbarConfig={setSnackbarConfig} initialState={initialState} />
     </Container>
   )
 }

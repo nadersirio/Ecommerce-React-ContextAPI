@@ -2,12 +2,11 @@ import { Button } from '@material-ui/core';
 import { Container, Title, InputContainer } from './styles';
 import { Input, InputLabel, InputAdornment } from '@material-ui/core';
 import { useNavigate } from 'react-router-dom';
-import { UserContext } from 'common/context/User';
-import { useContext } from 'react';
+import { useUserContext } from 'common/context/User';
 
 export const Login = () => {
   const navigate = useNavigate();
-  const { name, setName, balance, setBalance } = useContext(UserContext);
+  const { name, setName, balance, setBalance } = useUserContext();
   return (
     <Container>
       <Title>

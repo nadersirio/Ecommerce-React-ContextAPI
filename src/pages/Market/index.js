@@ -2,11 +2,12 @@ import { Container, Header, List } from './styles';
 import market from './market.json';
 import Product from 'components/Product';
 import { NavBar } from './NavBar';
-import { UserContext} from 'common/context/User';
-import { useContext } from 'react';
+import { useUserContext} from 'common/context/User';
+import { useCartContext } from 'common/context/Cart'
 
 export const Market = () => {
-  const { name, balance, cart, setCart } = useContext(UserContext);
+  const { name, balance } = useUserContext();
+  const { cart, setCart } = useCartContext();
   return (
     <Container>
       <NavBar />
